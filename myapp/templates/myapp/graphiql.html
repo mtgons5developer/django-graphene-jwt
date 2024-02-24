@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GraphiQL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/graphiql/1.0.3/graphiql.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.0.0/fetch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/graphiql/1.0.3/graphiql.js"></script>
+</head>
+<body style="margin: 0;">
+    <div id="graphiql" style="height: 100vh;"></div>
+    <script>
+        const endpointURL = '/graphql/';
+        ReactDOM.render(
+            React.createElement(GraphiQL, { fetcher: GraphiQL.createFetcher({ url: endpointURL }) }),
+            document.getElementById('graphiql'),
+        );
+    </script>
+</body>
+</html>

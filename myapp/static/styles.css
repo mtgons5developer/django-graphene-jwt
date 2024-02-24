@@ -1,0 +1,100 @@
+
+.select-delete {
+    margin: 0px;
+}
+
+.select-container {
+    margin: 20px;
+    position: absolute; top: 0; right: 0;
+}
+
+.product-container {
+    margin: 20px; position: relative; /* Added */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid with minimum width of 200px */
+    gap: 20px;
+}
+
+.product-item {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li a {
+    border: 1px solid #dee2e6; /* Light grey border */
+    margin-left: -1px; /* Negative margin to make the buttons touch */
+    display: block;
+    padding: 0.5rem 0.75rem;
+    line-height: 1.25;
+    color: #007bff; /* Bootstrap primary color */
+    background-color: #fff;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.pagination li:first-child a {
+    margin-left: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.pagination li:last-child a {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.pagination li a:hover {
+    z-index: 2;
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: none;
+    background-color: #e9ecef; /* Light grey background on hover */
+    border-color: #dee2e6;
+}
+
+.pagination .active a {
+    z-index: 3;
+    color: #fff;
+    background-color: #007bff; /* Bootstrap primary color */
+    border-color: #007bff;
+}
+
+.pagination .disabled a {
+    color: #6c757d; /* Bootstrap secondary color */
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+
+.pagination .page-link {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.pagination .page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.pagination .page-item:last-child .page-link {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+/* Ellipsis */
+.pagination .page-item.disabled .page-link {
+    color: #6c757d; /* Bootstrap secondary color */
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
+}

@@ -1,0 +1,173 @@
+<!-- home.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Website</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}"> <!-- Reference styles.css -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="{% static 'scripts.js' %}"></script> -->
+    <!-- <script>
+        // Function to handle the deletion of selected products
+        function deleteSelectedProducts() {
+            // Get the IDs of selected products
+            var selectedProductIds = [];
+            $('.product-checkbox:checked').each(function() {
+                selectedProductIds.push($(this).val());
+            });
+        
+            // Construct the GraphQL mutation for deleting selected products
+            var deleteProductsMutation = `
+                mutation DeleteProducts($ids: [ID!]!) {
+                    deleteProducts(ids: $ids) {
+                        success
+                        message
+                    }
+                }
+            `;
+        
+            // Variables for the GraphQL mutation
+            var variables = { ids: selectedProductIds };
+        
+            // Make a POST request to your GraphQL endpoint
+            fetch('/graphql/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify({
+                    query: deleteProductsMutation,
+                    variables: variables
+                })
+            })    
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response
+                console.log(data);
+                // Reload the page or update the UI as needed
+                location.reload(); // For example, you can reload the page to reflect the changes
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        // Function to handle the deletion of a specific product
+        function deleteProduct(productId) {
+            // Make a request to delete the product with the given ID
+            // Include the productId in the URL path
+            $.ajax({
+                url: `/delete_product/${productId}/`, // Include productId in the URL
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken  // Include CSRF token in the headers
+                },
+                success: function(response) {
+                    console.log('Product deleted successfully:', productId);
+                    // Perform any further actions after deleting the product
+                    // For example, you may want to update the UI or reload the page
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error deleting product:', error);
+                    // Handle the error appropriately
+                }
+            });
+        }
+        
+    </script>        
+    <script>
+    const csrfToken = "{{ csrf_token }}";
+    
+    $(document).ready(function() {
+        // Event listener for the Select All checkbox
+        $('#select-all-checkbox').change(function() {
+            $('.product-checkbox').prop('checked', $(this).prop('checked'));
+        });
+    
+        // Event listener for the Delete Selected Products button
+        $('#delete-selected').click(function() {
+            var selectedProductIds = [];
+            $('.product-checkbox:checked').each(function() {
+                selectedProductIds.push($(this).val());
+            });
+            
+            // Print out selected product IDs
+            console.log('Selected product IDs:', selectedProductIds);
+    
+            // Perform further actions with the selected product IDs, like deleting them
+            deleteSelectedProducts();
+        });
+    
+        // Event listener for the Delete Product buttons
+        $(document).on('click', '.delete-product-btn', function() {
+            var productId = $(this).data('product-id');
+            
+            // Print out the deleted product ID
+            console.log('Delete product with ID:', productId);
+    
+            // Perform further actions when a specific product is deleted
+            deleteProduct(productId);
+        });
+    });
+    </script>     -->
+</head>
+<body>
+    <h1>Sales Bricks</h1>
+    
+    {% if user.is_authenticated %}
+        <a href="{% url 'admin:index' %}">Go to Dashboard</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login Here!</a>
+    {% endif %}
+
+    <div style="position: relative;">
+        <h2>Products: {{ products|length }}</h2>        
+        <div class="select-container">
+            {% if user.is_authenticated %}
+                <input type="checkbox" id="select-all-checkbox"> 
+                <label for="select-all-checkbox"></label>
+                <button class="select-delete" id="delete-selected" style="display: none;">Delete</button> <!-- Initially hidden -->
+            {% endif %}
+        </div>
+    </div>
+    
+    {% load bootstrap_pagination %}
+    <div class="product-container">
+        <div class="grid-container">
+            {% for product in page_obj %}
+                <div class="product-item">
+                    <strong>Name:</strong> {{ product.name }}<br>
+                    <strong>Description:</strong> {{ product.description }}<br>
+                    <strong>Price:</strong> ${{ product.price }}<br>
+                    
+                    {% if user.is_authenticated %}
+                        <input type="checkbox" class="product-checkbox" value="{{ product.id }}">
+                        <button class="edit-product-btn" data-product-id="{{ product.id }}">Edit</button>
+                        <button class="delete-product-btn" data-product-id="{{ product.id }}">Delete</button>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No products available</p>
+            {% endfor %}
+        </div>
+    </div>    
+    {% bootstrap_paginate page_obj %}
+    
+    <!-- {% if is_paginated %}
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        {% for i in pages %}
+            <li {% if page_obj.number == i %} class="active" {% endif %}><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    {% endif %} -->
+
+    <script>
+        const csrfToken = "{{ csrf_token }}"; // Define the CSRF token as a global variable
+    </script>
+    <script src="{% static 'scripts.js' %}"></script>    
+</body>
+</html>
