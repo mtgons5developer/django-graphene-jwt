@@ -4,5 +4,6 @@ dj/.env
 logfile.log
 config.py
 /profile_pics
-
-
+myapp/migrations/
+myapp/__pycache__/
+.DS_Store
