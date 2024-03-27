@@ -4,8 +4,9 @@ from dotenv import load_dotenv
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Print loaded environment variables for debugging
+load_dotenv()
+
 print(os.getenv('SECRET_KEY'))
-quit()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True

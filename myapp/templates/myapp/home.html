@@ -133,7 +133,8 @@
         </div>
     </div>
     
-    {% load bootstrap_pagination %}
+    {% load bootstrap4 %}
+
     <div class="product-container">
         <div class="grid-container">
             {% for product in page_obj %}
@@ -152,8 +153,9 @@
                 <p>No products available</p>
             {% endfor %}
         </div>
-    </div>    
-    {% bootstrap_paginate page_obj %}
+    </div>
+    
+    {% bootstrap_pagination page_obj %}
     
     <!-- {% if is_paginated %}
     <nav aria-label="Page navigation">

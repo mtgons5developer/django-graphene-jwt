@@ -1,4 +1,4 @@
-dj/settings.py
+dj/.env
 /myenv
 /node_modules
 logfile.log
